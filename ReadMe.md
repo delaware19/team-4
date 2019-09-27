@@ -1,4 +1,3 @@
 Howdy Y'all!
 
-Lets get startedy
-
+Lets get started
