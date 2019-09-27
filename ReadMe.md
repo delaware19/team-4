@@ -1,3 +1,4 @@
 Howdy Y'all!
 
-Lets get started bro!
+Lets get started comrades!
+
