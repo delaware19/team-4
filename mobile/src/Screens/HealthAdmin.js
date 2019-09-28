@@ -17,7 +17,8 @@ class HealthAdmin extends Component{
                 typeInput: '', 
                 storyName: '',
                 customText: [], 
-                customImages: [] 
+                customImages: [],
+                pages: 0 
             };
 
         this.handleStoryName = this.handleStoryName.bind(this);
@@ -33,11 +34,18 @@ class HealthAdmin extends Component{
       this.setState({storyName: event.target.value });
     }
     handleCustomText(event) {
-      // this.setState({ customText: update(this.state.customText, {$push: event.target.value })});  
-    }
+       this.setState({ customText: update(this.state.customText, {$push: [this.state.typeInput] })});
+       console.log(this.state.customText);
+       console.log(this.state.customImages);   
+       this.setState({typeInput: ''}); 
+       var newPages = this.state.pages+1  
+       this.setState({ pages: newPages}); 
+      }
 
     handleCustomImages(event) {
-      this.setState({ customImages: update(this.state.customImages, {$push: event.target.value })});  
+      console.log(event.target.value);
+      this.setState({ customImages: update(this.state.customImages, {$push: ['IMG_DATA'] })});
+
     }
 
     handleTextInput(event) {
@@ -47,7 +55,6 @@ class HealthAdmin extends Component{
 
     handleButtonVal(val) { 
       var myVal = this.state.typeInput + " " + val; 
-      alert(myVal); 
       this.setState({typeInput: myVal});
       console.log(this.state.typeInput);
     }
@@ -78,10 +85,14 @@ class HealthAdmin extends Component{
         </InputGroup>
 
           <br/> 
+          <Form>
         <input
 type="file"
+onSubmit = {() => this.handleCustomImages()}
 
 />  
+<input type="submit" value="Upload" /> 
+</Form>
 
           <br/>
 
@@ -90,9 +101,9 @@ type="file"
     <InputGroup.Prepend>
       <InputGroup.Text>Custom Text</InputGroup.Text>
     </InputGroup.Prepend>
-    <FormControl id = "textarea" as="textarea" onChange ={this.handleTextInput} aria-label="Custom Text" />
+    <FormControl id = "textarea" as="textarea" value = {this.state.typeInput} onChange ={this.handleTextInput} aria-label="Custom Text" />
     <InputGroup.Append>
-        <Button onClick={this.handleCustomText()}> Add page </Button>
+        <Button onClick={() => this.handleCustomText()} > Add page </Button>
     </InputGroup.Append>
 
     
@@ -110,13 +121,13 @@ type="file"
 <Button variant="secondary" onClick={() => this.handleButtonVal("$$RACE$$")}>Race</Button>
 <Button variant="secondary" onClick={() => this.handleButtonVal("$$FAVTOY$$")}>Favorite Toy</Button>
 
-<Button variant="secondary" onClick={() => console.log(this.state.customText)}>Favorite Toy</Button>
 
 </ButtonToolbar>
         
         </InputGroup>
-      
+          <h3> Number of pages: {this.state.pages}</h3>
         
+          <Button variant="primary" onClick={() => this.handleSubmit}>Preview Story</Button>
       </div>
               
         );
