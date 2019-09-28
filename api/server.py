@@ -10,13 +10,25 @@ db = firestore.client()
 
 app = Flask(__name__)
 user = ''
+
+def isUser(username):
+    users = db.collection('users').get()
+    if username not in users:
+        return False
+    else:
+        return True
+
+
 @app.route('/', methods = ['GET', 'POST'])
 def welcome():
     if request.method=='GET':
         return render_template('index.html')  # render a template
     else:
         user = request.form['username']
-        data = db.collection('users').document(user).get().to_dict()
+        if isUser(user):
+            data = db.collection('users').document(user).get().to_dict()
+        else:
+            render_template('index.html')
 
 
 def getCareTakers():
