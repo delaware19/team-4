@@ -7,15 +7,14 @@ from flask import Flask, render_template, request, url_for
 cred = credentials.Certificate('key.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client() 
-# password = generate_password_hash('TimCode007')
+
+app = Flask(__name__)
+@app.route('/', methods = ['GET', 'POST'])
+def welcome():
+    if request.method='GET':
+        return render_template('index.html')  # render a template
+
 data = db.collection('users').document('shreyshah33@gmail.com').get().to_dict()
-
-
-# password = db.collection('password').document('password').get().to_dict()['password']
-# print(password)
-# storage_client = storage.Client()
-# bucket = storage_client.get_bucket('<INSERT_BUCKET_HERE>')
-# create the application object
 
 def getCareTakers():
     return data['CareTakers']
@@ -32,17 +31,6 @@ def getGender():
 def getRace():
     return data['Race']
 
-app = Flask(__name__)
-@app.route('/')
-def welcome():
-    '''    
-    datastore={"files":[]}
-    docs = db.collection('files').get()
-    for doc in docs:
-        datastore['files'].append(doc.to_dict())
-    ''' 
-
-    return render_template('index.html')  # render a template
 
 @app.route('/howdy')
 def howdy():
