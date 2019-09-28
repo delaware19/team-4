@@ -1,58 +1,144 @@
 import React, {Component} from 'react';
-import { Button, Container, Row, Col } from 'reactstrap';
-import ReactSearchBox from 'react-search-box';
+import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle, Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem} from 'reactstrap';
+import axios from 'axios'
+import './Dashboard.css'
+import placeholder from '../img/placeholder.jpg'
+import HamburgerMenu from 'react-hamburger-menu'
 
-
- 
 class Dashboard extends Component{
-    state ={}
 
-    data = [
-        {
-          key: 'john',
-          value: 'John Doe',
-        },
-        {
-          key: 'jane',
-          value: 'Jane Doe',
-        },
-        {
-          key: 'mary',
-          value: 'Mary Phillips',
-        },
-        {
-          key: 'robert',
-          value: 'Robert',
-        },
-        {
-          key: 'karius',
-          value: 'Karius',
-        },
-      ]
+    state ={
+        dummyId:[],
+        dummyInfo:[],
+        text: ' ',
+        result: []
+    }
 
+    
 
     nextPage = ()  => {
         this.props.history.push('/profile')
       }
 
+      handleChange = (event) => {
+        const text = event.target.value.toLowerCase()
+        const newResult = []
+        //dummy user here is the "keyword"
+        //text is the input of the searchbox
+        for(let index = 0; index < this.state.dummyId.length; index++){
+            if(this.state.dummyId[index].toLowerCase().includes(text)){
+                newResult.push(this.state.dummyId[index])
+                console.log(newResult)
+            }
+        }
+        //put results of the search into the result[] array
+        this.setState({result:newResult})
+    }
+
+    componentDidMount(){
+        this._isMounted = true;
+        axios.get( '/getTemplates',  {} )
+            .then( response => {
+                console.log(response.data)
+                const id =[], pages=[];
+                id[0] = "checkup"
+                id[1] = "shots"
+                id[2] = "appointment"
+                pages[0] = response.data["checkup"]
+                pages[1] = response.data["shots"]
+                console.log(pages[0])
+                this.setState({ dummyId: id, dummyInfo: pages })
+            } )
+            .catch(error => {
+                console.log(error);
+            });
+        }
+
+ 
+    // using placeholder for picture right now, need to find a way to link keyword to the image
+      renderCategories(){
+        return this.state.result.map(story => {
+            return (
+                <>
+                <br></br>
+                <Card>
+                <CardImg top width="20%" src={placeholder} alt="Card image cap" />
+                <CardBody>
+                  <CardTitle>Story:</CardTitle>
+                  <CardSubtitle>{story}</CardSubtitle>
+                  <CardText>{story.name}</CardText>
+                  <Button>Button</Button>
+                </CardBody>
+              </Card>
+              </>
+            )
+        })
+    }
+
+
     render() {
+        let resp = this.renderCategories();
         return(
             <>
             <Container>
                 <Row>
                     <Col md="12">
-                        <h2>This is the Dashboard</h2>  
+                        <div>
+                        <Navbar color="light" light expand="md" id="back-color">
+                        <NavbarBrand href="/">reactstrap</NavbarBrand>
+                        <NavbarToggler onClick={this.toggle} />
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/components/">Components</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                            </NavItem>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                Options
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                <DropdownItem>
+                                    Option 1
+                                </DropdownItem>
+                                <DropdownItem>
+                                    Option 2
+                                </DropdownItem>
+                                <DropdownItem divider />
+                                <DropdownItem>
+                                    Reset
+                                </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                            </Nav>
+                        </Collapse>
+                        </Navbar>
+                    </div>
                     </Col>
                     <Col md="4">
                         <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                        <br></br>
+                        <br></br>
+                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                        <br></br>
+                        <br></br>
+                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
                     </Col>
                     <Col md="8">
-                        <ReactSearchBox
-                            placeholder="Search for Stories"
-                            value="Doe"
-                            data={this.data}
-                            callback={record => console.log(record)}
-                        />
+                        <Input placeholder="search stories" onChange={this.handleChange}/>
+                        {resp}
                     </Col>
                 </Row>
             </Container> 

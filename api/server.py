@@ -1,32 +1,88 @@
 # import the Flask class from the flask module
-
-from flask import Flask, render_template, request, url_for 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from flask import Flask, render_template, request, url_for , session
 # Use a service account
-'''
+cred = credentials.Certificate('key.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client() 
-'''
-# password = generate_password_hash('TimCode007')
-# db.collection('password').document('password').set({'password': password})
-# password = db.collection('password').document('password').get().to_dict()['password']
-# print(password)
-# storage_client = storage.Client()
-# bucket = storage_client.get_bucket('<INSERT_BUCKET_HERE>')
-# create the application object
+
 app = Flask(__name__)
+app.secret_key = 'Bazinga'
+user = ''
+
+def isUser(username):
+    if username=='shreyshah33':
+        return True
+    else:
+        return False
 
 
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def welcome():
-    '''    
-    datastore={"files":[]}
-    docs = db.collection('files').get()
-    for doc in docs:
-        datastore['files'].append(doc.to_dict())
-    ''' 
+    if request.method=='GET':
 
-    return render_template('index.html')  # render a template
+        return render_template('index.html')  # render a template
+    else:
+        user = request.form['username']
+        if not session.get('data', None):
+            session['data']='None'
+        if isUser(user):
+            session['data'] = db.collection('users').document(user).get().to_dict()
+            return str('THANKS')
+        else:
+            return render_template('index.html')
 
+
+# @app.route('/addCareTaker', methods = ['GET', 'POST'])
+# def addCareTaker():
+#     if request.method == 'GET':
+#         return render_template('caretaker.html')
+#     else:
+#         email = request.form['email']
+#         caretaker = request.form['caretaker']
+
+
+@app.route('/addUser', methods = ['GET','POST'])
+def addUser():
+    if request.method == 'GET':
+        return render_template('app.html')
+    else:
+        # email = request.form['email']
+        # name = request.form['name']
+        # caretaker = request.form['caretaker']
+        # gender = request.form['gender']
+        # race = request.form['race']
+        # age = request.form['race']
+
+        # caretakers = caretaker.split(',')
+        # my_dict = dict()
+        # my_dict['ChildName'] = name
+        # my_dict['CareTaker'] = caretakers
+        # my_dict['Gender'] = gender
+        # my_dict['Race'] = race
+        # my_dict['Age'] = age 
+        my_dict = request.get_json()
+        print(my_dict)
+        db.collection('users').document(my_dict['email']).set(my_dict['toPost'])
+
+        return 'Thanks'
+
+def getCareTakers():
+    return data['CareTakers']
+
+def getChildName():
+    return data['ChildName']
+
+def getAge():
+    return data['Age']
+
+def getGender():
+    return data['Gender']
+
+def getRace():
+    return data['Race']
 
 @app.route('/editStories', methods = ["POST"])
 def editStories():
@@ -37,6 +93,22 @@ def editStories():
     print(storyContent)
     #db.collection('stories').document(storyName).set(storyContent) 
     return "SUCCESS" 
+
+@app.route('/getTemplates')
+def getTemplates():
+    stories = db.collection('stories').stream()
+    my_dict = {}
+    if not session.get('data', None):
+        session['data']=db.collection('users').document('shreyshah33').get().to_dict()
+    for story in stories:
+        # print(story.to_dict())
+        pages = story.to_dict()['pages']
+        for x in range(0,len(pages),2):
+            pages[x]=pages[x].replace('$$CHILD$$', session.get('data')['ChildName'])
+            pages[x]=pages[x].replace('$$CARETAKER$$', session.get('data')['CareTaker'][0])
+        my_dict[str(story.id)]=pages
+    return my_dict
+
 
 # start the server with the 'run()' method
 if __name__ == '__main__':

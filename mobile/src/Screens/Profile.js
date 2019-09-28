@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
+
 import axios from 'axios'
 
 import update from 'immutability-helper'
@@ -20,12 +21,12 @@ class Profile extends Component {
                 email: '',
                 childName: '',
                 careTakers: [],
-                pronoun: '',
+                pronoun: 'he/his',
                 age: 0,
-                race: ''
+                race: 'Caucasian'
             };
 
-        this.handleChildName = this.handleEmail.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
         this.handleChildName = this.handleChildName.bind(this);
         this.handleAge = this.handleAge.bind(this);
         this.handlePronouns = this.handlePronouns.bind(this);
@@ -55,15 +56,15 @@ class Profile extends Component {
     }
 
     handleCareTaker1(event) {
-        this.setState({ careTakers: update(this.state.careTakers, { 0: { $set: event.target.value }  }) });
+        this.setState({ careTakers: update(this.state.careTakers, { 0: { $set: event.target.value } }) });
     }
 
     handleCareTaker2(event) {
-        this.setState({ careTakers: update(this.state.careTakers, { 1:  { $set: event.target.value } }) });
+        this.setState({ careTakers: update(this.state.careTakers, { 1: { $set: event.target.value } }) });
     }
 
     handleCareTaker3(event) {
-        this.setState({ careTakers: update(this.state.careTakers, { 2: {  $set: event.target.value }  }) });
+        this.setState({ careTakers: update(this.state.careTakers, { 2: { $set: event.target.value } }) });
     }
 
     handleRace(event) {
@@ -71,74 +72,114 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8080/addUser', this.state.email, this.state)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        axios.post('http://127.0.0.1:8080/addUser',
+            {
+                email: this.state.email,
+                toPost: {
+                    ChildName: this.state.childName,
+                    CareTaker: this.state.careTakers,
+                    Gender: this.state.pronoun,
+                    Age: this.state.age,
+                    Race: this.state.race
+                }
+            }
+        ).then(function (response) {
+            console.log(this.state.email);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    backPage = () => {
+        this.props.history.goBack()
     }
      
 
     render() {
-        let { cats } = this.state
+        const styles = {
+            container: {
+                width: '80%'
+            },
+            button: {
+                backgroundColor: '#006494',
+                color: 'white'
+            },
+            textInput: {
+                marginTop: '1%'
+            }
+        }
         return (
+            <Container style={styles.container}>
+                <Button style={styles.button} onClick={this.backPage}>
+                    Back
+                </Button>
 
-            <FormControl>
+                <div style={styles.textInput}>
+                    <TextField
+                        id="standard-name"
+                        label="Email"
+                        value={this.state.email}
+                        onChange={this.handleEmail}
+                        margin="normal"
+                    /> <br />
+                </div>
 
-
-                <TextField
-                    id="standard-name"
-                    label="Email"
-                    value={this.state.email}
-                    onChange={this.handleEmail}
-                    margin="normal"
-                />
-
-
-
+                <div style={styles.textInput}>
                 <TextField
                     id="standard-name"
                     label="Child's Name"
                     value={this.state.childName}
                     onChange={this.handleChildName}
                     margin="normal"
-                />
+                /> <br />
+                </div>
 
-
+                <div style={styles.textInput}>
                 <TextField
                     id="standard-name"
                     label="Primary Caretaker"
                     value={this.state.careTaker1}
                     onChange={this.handleCareTaker1}
                     margin="normal"
-                />
+                /> <br />
+                </div>
 
+                <div style={styles.textInput}>
                 <TextField
                     id="standard-name"
                     label="Secondary Caretaker"
                     value={this.state.careTaker2}
                     onChange={this.handleCareTaker2}
                     margin="normal"
-                />
+                /> <br />
+                </div>
 
+                <div style={styles.textInput}>
                 <TextField
                     id="standard-name"
                     label="Tertiary Caretaker"
                     value={this.state.careTaker3}
                     onChange={this.handleCareTaker3}
                     margin="normal"
-                />
+                /> <br />
+                </div>
 
+                <div style={styles.textInput}>
                 <TextField
                     id="standard-name"
                     label="Age"
                     value={this.state.age}
                     onChange={this.handleAge}
                     margin="normal"
-                />
+                /> <br />
+                <br />
+                </div>
 
+
+            <div style={styles.textInput}>
+            <div style={styles.right}>
+                <InputLabel> Gender </InputLabel>
                 <Select
                     value={this.state.pronoun}
                     onChange={this.handlePronouns}
@@ -147,8 +188,12 @@ class Profile extends Component {
                     <MenuItem value={'she/hers'}>she/hers</MenuItem>
                     <MenuItem value={'they/them'}>they/them</MenuItem>
                     <MenuItem value={'thirdperson'}>third person</MenuItem>
-                </Select>
+                </Select> <br />
+                <br />
+                </div>
 
+                <div style={styles.textInput}>
+                <InputLabel> Race </InputLabel>
                 <Select
                     value={this.state.race}
                     onChange={this.handleRace}
@@ -158,15 +203,23 @@ class Profile extends Component {
                     <MenuItem value={'Asian'}>Asian</MenuItem>
                     <MenuItem value={'Latino'}>Latino</MenuItem>
                     <MenuItem value={'Other'}>Other</MenuItem>
-                </Select>
+                </Select> <br />
+                <br />
+                </div>
 
-                <Button onClick={this.handleSubmit}>
+                <Button onClick={this.handleSubmit} style={styles.button}>
                     Submit
-                </Button>
-
-            </FormControl>
-
+                </Button> <br />
+            </div>
+            </Container >
         );
     }
 }
+
 export default Profile;
+
+const styles = {
+    textInput: {
+        backgroundColor: 'red'
+    }
+}

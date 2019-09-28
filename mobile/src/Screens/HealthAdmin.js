@@ -35,16 +35,14 @@ class HealthAdmin extends Component{
     }
     handleCustomText(event) {
        this.setState({ customText: update(this.state.customText, {$push: [this.state.typeInput] })});
-       console.log(this.state.customText);
-       console.log(this.state.customImages);   
+       this.setState({ customImages: update(this.state.customImages, {$push: ['IMG_DATA'] })});
        this.setState({typeInput: ''}); 
        var newPages = this.state.pages+1  
        this.setState({ pages: newPages}); 
       }
 
     handleCustomImages(event) {
-      console.log(event.target.value);
-      this.setState({ customImages: update(this.state.customImages, {$push: ['IMG_DATA'] })});
+      //this.setState({ customImages: update(this.state.customImages, {$push: ['IMG_DATA'] })});
 
     }
 
@@ -56,11 +54,24 @@ class HealthAdmin extends Component{
     handleButtonVal(val) { 
       var myVal = this.state.typeInput + " " + val; 
       this.setState({typeInput: myVal});
-      console.log(this.state.typeInput);
     }
 
-    handleSubmit(event) {
-      axios.post('http://127.0.0.1:8080/addUser', this.state.email, this.state)
+    handleSubmit() {
+      var StoryContent = [] 
+      var StoryName = this.state.storyName; 
+      var i; 
+      for (i = 0; i < this.state.customText.length; i++)
+      {
+        StoryContent.push(this.state.customText[i]);
+        StoryContent.push(this.state.customImages[i]); 
+      }
+
+      var JSON = {
+        StoryName: StoryName,
+        StoryContent: StoryContent  
+      }; 
+      alert(JSON); 
+      axios.post('http://127.0.0.1:8080/editStories', JSON)
         .then(function (response) {
           console.log(response);
         })
@@ -127,7 +138,7 @@ onSubmit = {() => this.handleCustomImages()}
         </InputGroup>
           <h3> Number of pages: {this.state.pages}</h3>
         
-          <Button variant="primary" onClick={() => this.handleSubmit}>Preview Story</Button>
+          <Button variant="primary" onClick={() => this.handleSubmit()}>Preview Story</Button>
       </div>
               
         );
