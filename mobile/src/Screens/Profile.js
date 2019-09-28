@@ -3,28 +3,43 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
+import axios from 'axios'
+
+import update from 'immutability-helper'
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state =
             {
+                email: '',
                 childName: '',
                 careTakers: [],
                 pronoun: '',
                 age: 0,
-                cats: [{name:"", age:""}],
-
+                race: ''
             };
 
+        this.handleChildName = this.handleEmail.bind(this);
         this.handleChildName = this.handleChildName.bind(this);
         this.handleAge = this.handleAge.bind(this);
         this.handlePronouns = this.handlePronouns.bind(this);
+        this.handleRace = this.handleRace.bind(this);
+
+        this.handleCareTaker1 = this.handleCareTaker1.bind(this);
+        this.handleCareTaker2 = this.handleCareTaker2.bind(this);
+        this.handleCareTaker3 = this.handleCareTaker3.bind(this);
+
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleEmail(event) {
+        this.setState({ email: event.target.value });
     }
 
     handleChildName(event) {
@@ -39,23 +54,52 @@ class Profile extends Component {
         this.setState({ pronoun: event.target.value });
     }
 
+    handleCareTaker1(event) {
+        this.setState({ careTakers: update(this.state.careTakers, { 0: { $set: event.target.value }  }) });
+    }
+
+    handleCareTaker2(event) {
+        this.setState({ careTakers: update(this.state.careTakers, { 1:  { $set: event.target.value } }) });
+    }
+
+    handleCareTaker3(event) {
+        this.setState({ careTakers: update(this.state.careTakers, { 2: {  $set: event.target.value }  }) });
+    }
+
     handleRace(event) {
-        this.setState({ race: this.target.value });
+        this.setState({ race: event.target.value });
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.childName);
-        event.preventDefault();
+        axios.post('http://127.0.0.1:8080/addUser', this.state.email, this.state)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     render() {
-        let {cats} = this.state
+        let { cats } = this.state
         return (
 
             <FormControl>
+
+
                 <TextField
                     id="standard-name"
-                    label="Name"
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleEmail}
+                    margin="normal"
+                />
+
+
+
+                <TextField
+                    id="standard-name"
+                    label="Child's Name"
                     value={this.state.childName}
                     onChange={this.handleChildName}
                     margin="normal"
@@ -64,38 +108,35 @@ class Profile extends Component {
 
                 <TextField
                     id="standard-name"
-                    label="Name"
+                    label="Primary Caretaker"
+                    value={this.state.careTaker1}
+                    onChange={this.handleCareTaker1}
+                    margin="normal"
+                />
+
+                <TextField
+                    id="standard-name"
+                    label="Secondary Caretaker"
+                    value={this.state.careTaker2}
+                    onChange={this.handleCareTaker2}
+                    margin="normal"
+                />
+
+                <TextField
+                    id="standard-name"
+                    label="Tertiary Caretaker"
+                    value={this.state.careTaker3}
+                    onChange={this.handleCareTaker3}
+                    margin="normal"
+                />
+
+                <TextField
+                    id="standard-name"
+                    label="Age"
                     value={this.state.age}
                     onChange={this.handleAge}
                     margin="normal"
                 />
-
-                <button>Add new cat</button>
-                {
-                    cats.map((val, idx) => {
-                        let catId = `cat-${idx}`, ageId = `age-${idx}`
-                        return (
-                            <div key={idx}>
-                                <label htmlFor={catId}>{`Cat #${idx + 1}`}</label>
-                                <input
-                                    type="text"
-                                    name={catId}
-                                    data-id={idx}
-                                    id={catId}
-                                    className="name"
-                                />
-                                <label htmlFor={ageId}>Age</label>
-                                <input
-                                    type="text"
-                                    name={ageId}
-                                    data-id={idx}
-                                    id={ageId}
-                                    className="age"
-                                />
-                            </div>
-                        )
-                    })
-                }
 
                 <Select
                     value={this.state.pronoun}
@@ -118,30 +159,12 @@ class Profile extends Component {
                     <MenuItem value={'Other'}>Other</MenuItem>
                 </Select>
 
+                <Button onClick={this.handleSubmit}>
+                    Submit
+                </Button>
 
             </FormControl>
 
-
-
-            // <form onSubmit={this.handleSubmit}>
-
-
-            //     <input type="text" value={this.state.childName} onChange={this.handleChildName} />
-
-            //     <input type="text" value={this.state.age} onChange={this.handleAge} />
-
-            //     <select value={this.state.pronoun} onChange={this.handlePronouns}>
-            //         <option value="he/his">he/his</option>
-            //         <option value="she/her">she/her</option>
-            //         <option value="they/them">they/them</option>
-            //         <option value="third_person">third person</option>
-            //     </select>
-
-
-
-
-            //     <input type="submit" value="Submit" />
-            // </form>
         );
     }
 }
