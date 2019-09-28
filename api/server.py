@@ -23,6 +23,9 @@ def getCareTakers():
 def getChildName():
     return data['ChildName']
 
+def getAge():
+    return data['Age']
+
 
 app = Flask(__name__)
 @app.route('/')
