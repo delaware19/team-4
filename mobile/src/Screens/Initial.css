@@ -1,0 +1,23 @@
+#Initial{
+    background-color: #006494;
+    background-size:cover;
+    background-position:center center;
+    height: '100%';
+    width: '100%';
+
+   }
+   body{
+       background-color:#fff;
+       padding:100px !important;
+   }
+#Button {
+    color:#fff;
+    border-end-end-radius: 40%;
+    display: block
+}
+
+#Button:hover{
+    color:#fff;
+    background-color:#006494 !important;
+    border-color:#006494 !important;
+}

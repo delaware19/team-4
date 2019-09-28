@@ -13,6 +13,7 @@ import {BrowserRouter} from 'react-router-dom';
 // import HttpsRedirect from 'react-https-redirect';
 
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
 const app = (
     <BrowserRouter>
         <App/>
