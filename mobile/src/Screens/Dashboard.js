@@ -96,20 +96,9 @@ class Dashboard extends Component{
 
 
     render() {
-        let resp = this.renderCategories()
+        let resp = this.renderCategories();
         return(
             <>
-            <HamburgerMenu
-                isOpen={this.state.open}
-                menuClicked={this.handleClick.bind(this)}
-                width={18}
-                height={15}
-                strokeWidth={1}
-                rotate={0}
-                color='black'
-                borderRadius={0}
-                animationDuration={0.5}
-            />
             <Container>
                 <Row>
                     <Col md="12">
