@@ -98,6 +98,7 @@ class Profile extends Component {
 
 
                 <TextField
+                    class={styles.textInput}
                     id="standard-name"
                     label="Email"
                     value={this.state.email}
@@ -176,4 +177,11 @@ class Profile extends Component {
         );
     }
 }
+
 export default Profile;
+
+const styles = {
+    textInput: {
+        color: 'red'
+    }
+}
