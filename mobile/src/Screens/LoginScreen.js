@@ -32,7 +32,7 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-        if() {
+        if(this.state.email != "shreyshah33") {
             this.setState({invalid: true})
         } else {
             this.props.history.push('/dashboard')

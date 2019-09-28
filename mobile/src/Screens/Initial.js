@@ -43,8 +43,13 @@ class Initial extends Component {
         }
     }
 
-    nextPage = () => {
+    nextPageProfile = () => {
         this.props.history.push('/profile')
+    }
+
+    
+    nextPageLogin = () => {
+        this.props.history.push('/login')
     }
 
 
@@ -54,9 +59,9 @@ class Initial extends Component {
             <>
                 <div id='Initial'>
                     <body>
-                        <Button style={{ color: '#fff', backgroundColor: '#5a6268' }} onClick={this.nextPage}>Login</Button>
+                        <Button style={{ color: '#fff', backgroundColor: '#5a6268' }} onClick={this.nextPageLogin}>Login</Button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Button style={{ color: '#fff', backgroundColor: '#5a6268' }} onClick={this.nextPage}>New Profile</Button>
+                        <Button style={{ color: '#fff', backgroundColor: '#5a6268' }} onClick={this.nextPageProfile}>New Profile</Button>
                     </body>
 
                 </div>
