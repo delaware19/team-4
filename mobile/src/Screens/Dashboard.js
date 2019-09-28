@@ -12,6 +12,7 @@ import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, 
     DropdownItem} from 'reactstrap';
 import axios from 'axios'
 import './Dashboard.css'
+import shots from '../img/shots.jpg'
 import placeholder from '../img/placeholder.jpg'
 import HamburgerMenu from 'react-hamburger-menu'
 
@@ -29,6 +30,21 @@ class Dashboard extends Component{
     nextPage = ()  => {
         this.props.history.push('/profile')
       }
+
+      profile = ()  => {
+        this.props.history.push('/profile')
+      }
+
+    example = (story) => {
+        console.log("HERERER");
+        if(story==="shots"){
+           this.props.history.push('/carouselshots');
+        }
+        else if (story==="checkup"){
+            this.props.history.push('/carousel');
+        }
+    }
+      
 
       handleChange = (event) => {
         const text = event.target.value.toLowerCase()
@@ -71,15 +87,9 @@ class Dashboard extends Component{
             return (
                 <>
                 <br></br>
-                <Card>
-                <CardImg top width="20%" src={placeholder} alt="Card image cap" />
-                <CardBody>
-                  <CardTitle>Story:</CardTitle>
-                  <CardSubtitle>{story}</CardSubtitle>
-                  <CardText>{story.name}</CardText>
-                  <Button>Button</Button>
-                </CardBody>
-              </Card>
+                  <Button id="resbut" onClick =  {() => {this.example(story)}}>
+                  {story} 
+                  </Button>
               </>
             )
         })
@@ -95,48 +105,32 @@ class Dashboard extends Component{
                     <Col md="12">
                         <div>
                         <Navbar color="light" light expand="md" id="back-color">
-                        <NavbarBrand href="/">reactstrap</NavbarBrand>
+                        <NavbarBrand href="/">Dashboard</NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
+                            <Button id="navbut" color="danger" onClick={this.profile}>Children's Profile</Button>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                            <Button id="navbut" color="danger" onClick={this.nextPage}>Account</Button>
                             </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                Options
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                <DropdownItem>
-                                    Option 1
-                                </DropdownItem>
-                                <DropdownItem>
-                                    Option 2
-                                </DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>
-                                    Reset
-                                </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <Button id="navbut" color="danger" onClick={this.nextPage}>Logout</Button>
                             </Nav>
                         </Collapse>
                         </Navbar>
                     </div>
                     </Col>
                     <Col md="4">
-                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                        
                         <br></br>
                         <br></br>
-                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                       
                         <br></br>
                         <br></br>
-                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                        
                     </Col>
-                    <Col md="8">
+                    <Col md="12">
                         <Input placeholder="search stories" onChange={this.handleChange}/>
                         {resp}
                     </Col>

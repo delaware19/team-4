@@ -72,7 +72,7 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8080/addUser',
+        axios.post('/addUser',
             {
                 email: this.state.email,
                 toPost: {
@@ -109,108 +109,126 @@ class Profile extends Component {
                 marginTop: '1%'
             }
         }
+
         return (
             <Container style={styles.container}>
-                <Button style={styles.button} onClick={this.backPage}>
-                    Back
-                </Button>
 
-                <div style={styles.textInput}>
-                    <TextField
-                        id="standard-name"
-                        label="Email"
-                        value={this.state.email}
-                        onChange={this.handleEmail}
-                        margin="normal"
-                    /> <br />
+                <div style={{marginTop: '3%'}}>
+
+                    <Button style={styles.button} onClick={this.backPage}>
+                        Back
+                    </Button>
+                </div>
+            
+
+                <div style={{ float: 'left', width: '50%' }}>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Email"
+                            value={this.state.email}
+                            onChange={this.handleEmail}
+                            margin="normal"
+                        /> <br />
+                    </div>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Child's Name"
+                            value={this.state.childName}
+                            onChange={this.handleChildName}
+                            margin="normal"
+                        /> <br />
+                    </div>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Primary Caretaker"
+                            value={this.state.careTaker1}
+                            onChange={this.handleCareTaker1}
+                            margin="normal"
+                        /> <br />
+                    </div>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Secondary Caretaker"
+                            value={this.state.careTaker2}
+                            onChange={this.handleCareTaker2}
+                            margin="normal"
+                        /> <br />
+                    </div>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Tertiary Caretaker"
+                            value={this.state.careTaker3}
+                            onChange={this.handleCareTaker3}
+                            margin="normal"
+                        /> <br />
+                    </div>
+
+                    <div style={styles.textInput}>
+                        <TextField
+                            id="standard-name"
+                            label="Age"
+                            value={this.state.age}
+                            onChange={this.handleAge}
+                            margin="normal"
+                        /> <br />
+                        <br />
+                    </div>
+
                 </div>
 
-                <div style={styles.textInput}>
-                <TextField
-                    id="standard-name"
-                    label="Child's Name"
-                    value={this.state.childName}
-                    onChange={this.handleChildName}
-                    margin="normal"
-                /> <br />
-                </div>
+                <div style={{ float: 'right', width: '50%', marginTop: '3%' }}>
+                    <div style={styles.textInput}>
+                        <div style={styles.right}>
+                            <InputLabel> Gender </InputLabel>
+                            <Select
+                                value={this.state.pronoun}
+                                onChange={this.handlePronouns}
+                            >
+                                <MenuItem value={'he/his'}>he/his</MenuItem>
+                                <MenuItem value={'she/hers'}>she/hers</MenuItem>
+                                <MenuItem value={'they/them'}>they/them</MenuItem>
+                                <MenuItem value={'thirdperson'}>third person</MenuItem>
+                            </Select>
 
-                <div style={styles.textInput}>
-                <TextField
-                    id="standard-name"
-                    label="Primary Caretaker"
-                    value={this.state.careTaker1}
-                    onChange={this.handleCareTaker1}
-                    margin="normal"
-                /> <br />
-                </div>
+                            <br />
+                            <br />
+                        </div>
 
-                <div style={styles.textInput}>
-                <TextField
-                    id="standard-name"
-                    label="Secondary Caretaker"
-                    value={this.state.careTaker2}
-                    onChange={this.handleCareTaker2}
-                    margin="normal"
-                /> <br />
-                </div>
+                        <div style={styles.textInput}>
+                            <InputLabel> Race </InputLabel>
+                            <Select
+                                value={this.state.race}
+                                onChange={this.handleRace}
+                            >
+                                <MenuItem value={'Caucasian'}>Caucasian</MenuItem>
+                                <MenuItem value={'Black'}>Black</MenuItem>
+                                <MenuItem value={'Asian'}>Asian</MenuItem>
+                                <MenuItem value={'Latino'}>Latino</MenuItem>
+                                <MenuItem value={'Other'}>Other</MenuItem>
 
-                <div style={styles.textInput}>
-                <TextField
-                    id="standard-name"
-                    label="Tertiary Caretaker"
-                    value={this.state.careTaker3}
-                    onChange={this.handleCareTaker3}
-                    margin="normal"
-                /> <br />
-                </div>
+                            </Select>
 
-                <div style={styles.textInput}>
-                <TextField
-                    id="standard-name"
-                    label="Age"
-                    value={this.state.age}
-                    onChange={this.handleAge}
-                    margin="normal"
-                /> <br />
-                <br />
-                </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
 
-
-            <div style={styles.textInput}>
-            <div style={styles.right}>
-                <InputLabel> Gender </InputLabel>
-                <Select
-                    value={this.state.pronoun}
-                    onChange={this.handlePronouns}
-                >
-                    <MenuItem value={'he/his'}>he/his</MenuItem>
-                    <MenuItem value={'she/hers'}>she/hers</MenuItem>
-                    <MenuItem value={'they/them'}>they/them</MenuItem>
-                    <MenuItem value={'thirdperson'}>third person</MenuItem>
-                </Select> <br />
-                <br />
-                </div>
-
-                <div style={styles.textInput}>
-                <InputLabel> Race </InputLabel>
-                <Select
-                    value={this.state.race}
-                    onChange={this.handleRace}
-                >
-                    <MenuItem value={'Caucasian'}>Caucasian</MenuItem>
-                    <MenuItem value={'Black'}>Black</MenuItem>
-                    <MenuItem value={'Asian'}>Asian</MenuItem>
-                    <MenuItem value={'Latino'}>Latino</MenuItem>
-                    <MenuItem value={'Other'}>Other</MenuItem>
-                </Select> <br />
-                <br />
-                </div>
-
-                <Button onClick={this.handleSubmit} style={styles.button}>
-                    Submit
+                    <Button onClick={this.handleSubmit} style={styles.button}>
+                        Submit
                 </Button> <br />
-            </div>
+                </div>
             </Container >
         );
     }
