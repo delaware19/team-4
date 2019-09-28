@@ -12,7 +12,7 @@ app = Flask(__name__)
 user = ''
 @app.route('/', methods = ['GET', 'POST'])
 def welcome():
-    if request.method='GET':
+    if request.method=='GET':
         return render_template('index.html')  # render a template
     else:
         user = request.form['username']
