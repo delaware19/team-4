@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button } from 'reactstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 import ReactSearchBox from 'react-search-box';
 
 
@@ -38,14 +38,25 @@ class Dashboard extends Component{
     render() {
         return(
             <>
-            <h2>This is the Dashboard</h2>   
-            <Button color="danger" onClick={this.nextPage}>Profile</Button>
-            <ReactSearchBox
-                placeholder="Placeholder"
-                value="Doe"
-                data={this.data}
-                callback={record => console.log(record)}
-            />
+            <Container>
+                <Row>
+                    <Col md="12">
+                        <h2>This is the Dashboard</h2>  
+                    </Col>
+                    <Col md="4">
+                        <Button color="danger" onClick={this.nextPage}>Profile</Button>
+                    </Col>
+                    <Col md="8">
+                        <ReactSearchBox
+                            placeholder="Search for Stories"
+                            value="Doe"
+                            data={this.data}
+                            callback={record => console.log(record)}
+                        />
+                    </Col>
+                </Row>
+            </Container> 
+
             </>
         );
     };
