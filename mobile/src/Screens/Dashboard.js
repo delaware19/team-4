@@ -38,7 +38,19 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
+<<<<<<< HEAD
         // axios.get( 'https://jsonplaceholder.typicode.com/users',  {} )
+=======
+        axios.get( '/getTemplates',  {} )
+            .then( response => {
+                console.log(response.data)
+            } )
+            .catch(error => {
+                console.log(error);
+            });
+
+        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+>>>>>>> 235e687d5948e85738b4a8a34271ba3d3e431f0f
         //     .then( response => {
         //         console.log(response.data)
         //     } )
