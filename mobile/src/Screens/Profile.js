@@ -72,7 +72,8 @@ class Profile extends Component {
 
     handleSubmit(event) {
         axios.post('http://127.0.0.1:8080/addUser', 
-            {             
+            {       
+                headers: {'Content-Type': 'application/json'},      
                 email: this.state.email, 
                 toPost: {
                     ChildName: this.state.childName,
@@ -81,7 +82,7 @@ class Profile extends Component {
                     Age: this.state.age,
                     Race: this.state.race
                 }
-             }
+             },
             ).then(function (response) {
             console.log(this.state.email,);
           })
