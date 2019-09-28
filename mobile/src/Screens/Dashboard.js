@@ -19,7 +19,7 @@ class Dashboard extends Component{
 
     state ={
         dummyId:[],
-        dummyName:[],
+        dummyInfo:[],
         text: ' ',
         result: []
     }
@@ -30,16 +30,14 @@ class Dashboard extends Component{
         this.props.history.push('/profile')
       }
 
-    handleChange = (event) => {
-
+      handleChange = (event) => {
         const text = event.target.value.toLowerCase()
         const newResult = []
         //dummy user here is the "keyword"
         //text is the input of the searchbox
-
-        for(let index = 0; index < this.state.dummyName.length; index++){
-            if(this.state.dummyName[index].toLowerCase().includes(text)){
-                newResult.push(this.state.dummyName[index])
+        for(let index = 0; index < this.state.dummyId.length; index++){
+            if(this.state.dummyId[index].toLowerCase().includes(text)){
+                newResult.push(this.state.dummyId[index])
                 console.log(newResult)
             }
         }
@@ -49,45 +47,21 @@ class Dashboard extends Component{
 
     componentDidMount(){
         this._isMounted = true;
-
-
         axios.get( '/getTemplates',  {} )
             .then( response => {
                 console.log(response.data)
                 const id =[], pages=[];
                 id[0] = "checkup"
                 id[1] = "shots"
+                id[2] = "appointment"
                 pages[0] = response.data["checkup"]
                 pages[1] = response.data["shots"]
                 console.log(pages[0])
+                this.setState({ dummyId: id, dummyInfo: pages })
             } )
             .catch(error => {
                 console.log(error);
             });
-
-        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
-        //     .then( response => {
-        //         console.log(response.data)
-        //     } )
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-
-        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
-        //     .then( response => {
-        //         if(this._isMounted){
-        //             const dummyId1 = [], dummyName1 = [];
-        //             for (let i = 0; i < response.data.length; i++) {
-        //                 dummyId1[i] = response.data[i].id;
-        //                 dummyName1[i] = response.data[i].name;
-        //             }
-        //             this.setState({dummyId:dummyId1, dummyName:dummyName1});
-                   
-        //         }
-        //     } )
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
         }
 
  
