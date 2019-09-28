@@ -36,7 +36,7 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
-        axios.get( 'http://127.0.0.1:8080/getTemplates', {} )
+        axios.get( 'http://127.0.0.1:8080/getTemplates',  {} )
             .then( response => {
                 console.log(response.data)
             } )
