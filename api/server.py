@@ -26,6 +26,9 @@ def getChildName():
 def getAge():
     return data['Age']
 
+def getGender():
+    return data['Gender']
+
 
 app = Flask(__name__)
 @app.route('/')
