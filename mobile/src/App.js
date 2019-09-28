@@ -6,11 +6,10 @@ import Profile from './Screens/Profile';
 
 
 function App() {
-
   return(
 
     <div className="App">
-          <Route path="/" component={Dashboard}/>
+          <Route exact path="/" component={Dashboard}/>
           <Route exact path ="/profile" component={Profile}/>
     </div>
 
