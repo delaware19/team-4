@@ -43,30 +43,30 @@ def addCareTaker():
         caretaker = request.form['caretaker']
 
 
-@app.route('/addUser', methods = ['GET', 'POST'])
+@app.route('/addUser', methods = ['GET','POST'])
 def addUser():
     if request.method == 'GET':
         return render_template('app.html')
     else:
-        email = request.form['email']
-        name = request.form['name']
-        caretaker = request.form['caretaker']
-        gender = request.form['gender']
-        race = request.form['race']
-        age = request.form['race']
+        # email = request.form['email']
+        # name = request.form['name']
+        # caretaker = request.form['caretaker']
+        # gender = request.form['gender']
+        # race = request.form['race']
+        # age = request.form['race']
 
-        my_dict = dict()
-        my_dict['ChildName'] = name
-        my_dict['CareTaker'] = [caretaker]
-        my_dict['Gender'] = gender
-        my_dict['Race'] = race
-        my_dict['Age'] = age 
+        # caretakers = caretaker.split(',')
+        # my_dict = dict()
+        # my_dict['ChildName'] = name
+        # my_dict['CareTaker'] = caretakers
+        # my_dict['Gender'] = gender
+        # my_dict['Race'] = race
+        # my_dict['Age'] = age 
+        my_dict = request.get_json()
+        print(my_dict)
+        db.collection('users').document(my_dict['email']).set(my_dict['toPost'])
 
-        db.collection('users').document(email).set(my_dict)
-       
-
-
-        return render_template(email)
+        return 'Thanks'
 
 def getCareTakers():
     return data['CareTakers']
@@ -100,9 +100,18 @@ def getRace():
     return data['Race']
 
 
-@app.route('/howdy')
-def howdy():
-    return str(session.get('data'))
+@app.route('/getTemplates')
+def getTemplates():
+    stories = db.collection('stories').stream()
+    my_dict = {}
+    for story in stories:
+        # print(story.to_dict())
+        pages = story.to_dict()['pages']
+        for x in range(0,len(pages),2):
+            pages[x]=pages[x].replace('$$CHILD$$', session.get('data')['ChildName'])
+            pages[x]=pages[x].replace('$$CARETAKER$$', session.get('data')['CareTaker'][0])
+        my_dict[str(story.id)]=pages
+    return my_dict
 
 
 # start the server with the 'run()' method
