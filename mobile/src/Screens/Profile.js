@@ -25,7 +25,7 @@ class Profile extends Component {
                 race: ''
             };
 
-        this.handleChildName = this.handleEmail.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
         this.handleChildName = this.handleChildName.bind(this);
         this.handleAge = this.handleAge.bind(this);
         this.handlePronouns = this.handlePronouns.bind(this);
@@ -71,9 +71,19 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8080/addUser', this.state.email, this.state)
-          .then(function (response) {
-            console.log(response);
+        axios.post('http://127.0.0.1:8080/addUser', 
+            {             
+                email: this.state.email, 
+                toPost: {
+                    ChildName: this.state.childName,
+                    CareTaker: this.state.careTakers,
+                    Gender: this.state.pronoun,
+                    Age: this.state.age,
+                    Race: this.state.race
+                }
+             }
+            ).then(function (response) {
+            console.log(this.state.email,);
           })
           .catch(function (error) {
             console.log(error);
@@ -94,8 +104,6 @@ class Profile extends Component {
                     onChange={this.handleEmail}
                     margin="normal"
                 />
-
-
 
                 <TextField
                     id="standard-name"
