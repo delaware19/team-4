@@ -4,6 +4,7 @@ import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, 
 import axios from 'axios'
 import './Dashboard.css'
 import placeholder from '../img/placeholder.jpg'
+import HamburgerMenu from 'react-hamburger-menu'
 
 class Dashboard extends Component{
 
@@ -38,9 +39,7 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
-<<<<<<< HEAD
-        // axios.get( 'https://jsonplaceholder.typicode.com/users',  {} )
-=======
+
         axios.get( '/getTemplates',  {} )
             .then( response => {
                 console.log(response.data)
@@ -50,7 +49,6 @@ class Dashboard extends Component{
             });
 
         // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
->>>>>>> 235e687d5948e85738b4a8a34271ba3d3e431f0f
         //     .then( response => {
         //         console.log(response.data)
         //     } )
@@ -101,6 +99,17 @@ class Dashboard extends Component{
         let resp = this.renderCategories()
         return(
             <>
+            <HamburgerMenu
+                isOpen={this.state.open}
+                menuClicked={this.handleClick.bind(this)}
+                width={18}
+                height={15}
+                strokeWidth={1}
+                rotate={0}
+                color='black'
+                borderRadius={0}
+                animationDuration={0.5}
+            />
             <Container>
                 <Row>
                     <Col md="12">
