@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import { Button, Container, Row, Col, Input, Card, CardText, CardBody, Spinner} from 'reactstrap';
+import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle} from 'reactstrap';
 // import ReactSearchBox from 'react-search-box';
 import axios from 'axios'
+import './Dashboard.css'
+import placeholder from '../img/placeholder.jpg'
 
 class Dashboard extends Component{
 
     state ={
-        dummyUser:[],
-        dummyTitle:[],
+        dummyId:[],
+        dummyName:[],
         text: ' ',
         result: []
     }
@@ -17,16 +19,15 @@ class Dashboard extends Component{
       }
 
     handleChange = (event) => {
-        console.log(this.state.text)
 
         const text = event.target.value.toLowerCase()
         const newResult = []
         //dummy user here is the "keyword"
         //text is the input of the searchbox
 
-        for(let index = 0; index < this.state.dummyTitle.length; index++){
-            if(this.state.dummyTitle[index].toLowerCase().includes(text)){
-                newResult.push(this.state.dummyTitle[index])
+        for(let index = 0; index < this.state.dummyName.length; index++){
+            if(this.state.dummyName[index].toLowerCase().includes(text)){
+                newResult.push(this.state.dummyName[index])
                 console.log(newResult)
             }
         }
@@ -37,15 +38,35 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
-        axios.get( 'https://jsonplaceholder.typicode.com/albums', {} )
+<<<<<<< HEAD
+        // axios.get( 'https://jsonplaceholder.typicode.com/users',  {} )
+=======
+        axios.get( '/getTemplates',  {} )
+            .then( response => {
+                console.log(response.data)
+            } )
+            .catch(error => {
+                console.log(error);
+            });
+
+        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+>>>>>>> 235e687d5948e85738b4a8a34271ba3d3e431f0f
+        //     .then( response => {
+        //         console.log(response.data)
+        //     } )
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+
+        axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
             .then( response => {
                 if(this._isMounted){
-                    const dummyUser1 = [], dummyTitle1 = [];
+                    const dummyId1 = [], dummyName1 = [];
                     for (let i = 0; i < response.data.length; i++) {
-                        dummyUser1[i] = response.data[i].id;
-                        dummyTitle1[i] = response.data[i].title;
+                        dummyId1[i] = response.data[i].id;
+                        dummyName1[i] = response.data[i].name;
                     }
-                    this.setState({dummyUser:dummyUser1, dummyTitle:dummyTitle1});
+                    this.setState({dummyId:dummyId1, dummyName:dummyName1});
                    
                 }
             } )
@@ -55,21 +76,29 @@ class Dashboard extends Component{
         }
 
  
+    // using placeholder for picture right now, need to find a way to link keyword to the image
       renderCategories(){
         return this.state.result.map(story => {
             return (
-                <Card key={story.Id}>
-                    <CardBody>
-                        <CardText>{story.Id}</CardText>
-                    </CardBody>
-                </Card>
+                <>
+                <br></br>
+                <Card>
+                <CardImg top width="20%" src={placeholder} alt="Card image cap" />
+                <CardBody>
+                  <CardTitle>Story:</CardTitle>
+                  <CardSubtitle>{story}</CardSubtitle>
+                  <CardText>{story.name}</CardText>
+                  <Button>Button</Button>
+                </CardBody>
+              </Card>
+              </>
             )
         })
     }
 
 
     render() {
-        let resp = this.state.isLoading ? <Spinner color="secondary" /> : this.renderCategories()
+        let resp = this.renderCategories()
         return(
             <>
             <Container>
@@ -81,8 +110,8 @@ class Dashboard extends Component{
                         <Button color="danger" onClick={this.nextPage}>Profile</Button>
                     </Col>
                     <Col md="8">
-                        {resp}
                         <Input placeholder="search stories" onChange={this.handleChange}/>
+                        {resp}
                     </Col>
                 </Row>
             </Container> 
