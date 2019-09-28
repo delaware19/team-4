@@ -1,5 +1,4 @@
 #Initial{
-    background-color: #006494;
     background-size:cover;
     background-position:center center;
     height: '100%';
@@ -7,7 +6,8 @@
 
    }
    body{
-       background-color:#fff;
+       background-image:'C:\Users\Marwane\Desktop\JP2\team-4\mobile\src\img\AutismSymbol.png';
+       
        padding:100px !important;
    }
 #Button {
