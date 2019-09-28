@@ -79,6 +79,7 @@ class Profile extends Component {
             console.log(error);
           });
     }
+     
 
     render() {
         let { cats } = this.state
