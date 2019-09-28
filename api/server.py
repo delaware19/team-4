@@ -2,21 +2,21 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from flask import Flask, render_template, request, url_for 
+from flask import Flask, render_template, request, url_for , session
 # Use a service account
 cred = credentials.Certificate('key.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client() 
 
 app = Flask(__name__)
+app.secret_key = 'Bazinga'
 user = ''
 
 def isUser(username):
-    users = db.collection('users').get()
-    if username not in users:
-        return False
-    else:
+    if username=='shreyshah33':
         return True
+    else:
+        return False
 
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -25,9 +25,11 @@ def welcome():
         return render_template('index.html')  # render a template
     else:
         user = request.form['username']
+        if not session.get('data', None):
+            session['data']='None'
         if isUser(user):
-            data = db.collection('users').document(user).get().to_dict()
-            return render_template('THANKS')
+            session['data'] = db.collection('users').document(user).get().to_dict()
+            return str('THANKS')
         else:
             return render_template('index.html')
 
@@ -50,12 +52,7 @@ def getRace():
 
 @app.route('/howdy')
 def howdy():
-    return str(data)
-
-
-
-
-
+    return str(session.get('data'))
 
 
 # start the server with the 'run()' method
