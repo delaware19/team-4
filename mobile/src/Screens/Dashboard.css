@@ -18,3 +18,31 @@
 .navbar-light .navbar-nav .nav-link{
     color: #fff !important;
 } 
+
+.btn {
+    padding: .2rem .75rem !important;  
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.btn-secondary:hover{
+    color:#fff;
+    background-color:#006494 !important;
+    border-color:#006494 !important;
+}
+
+#navbut {
+    font-size: 1rem !important;
+    background-color:#5a6268 !important;
+    border-color:#5a6268!important;
+}
+
+#navbut:hover {
+    color:#fff;
+    background-color:#006494 !important;
+    border-color:#006494 !important;
+}
+
+#resbut {
+    font-size: 3rem !important;
+}
