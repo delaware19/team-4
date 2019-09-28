@@ -74,6 +74,22 @@ def getCareTakers():
 def getChildName():
     return data['ChildName']
 
+@app.route('/editStories', methods = ['POST'])
+def editStories():
+    if request.method == "POST":
+        storyName = request["StoryName"]
+        storyContent = request["StoryContent"]
+        db.collection('stories').document(storyName).set(storyContent) 
+    elif request.method == "PUT": 
+        story_line = request["StoryText"]
+        story_image = request["StoryImage"] 
+        story = db.collection('stories').document(request["StoryName"])
+        story = story.add([story_line, story_image])
+        db.collection('stories').document(request["StoryName"]).update(story)
+         
+    
+
+
 def getAge():
     return data['Age']
 
