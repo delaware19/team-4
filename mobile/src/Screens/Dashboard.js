@@ -54,8 +54,6 @@ class Dashboard extends Component{
             });
         }
 
-   
-
  
       renderCategories(){
         return this.state.result.map(story => {
@@ -83,18 +81,8 @@ class Dashboard extends Component{
                         <Button color="danger" onClick={this.nextPage}>Profile</Button>
                     </Col>
                     <Col md="8">
-                        
                         {resp}
                         <Input placeholder="search stories" onChange={this.handleChange}/>
-
-                        {/* <Dropdown/> */}
-
-                        {/* <ReactSearchBox
-                            placeholder="Search for Stories"
-                            value="Doe"
-                            data={this.data}
-                            callback={record => console.log(record)}
-                        /> */}
                     </Col>
                 </Row>
             </Container> 
