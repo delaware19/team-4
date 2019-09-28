@@ -27,8 +27,9 @@ def welcome():
         user = request.form['username']
         if isUser(user):
             data = db.collection('users').document(user).get().to_dict()
+            return render_template('THANKS')
         else:
-            render_template('index.html')
+            return render_template('index.html')
 
 
 def getCareTakers():
