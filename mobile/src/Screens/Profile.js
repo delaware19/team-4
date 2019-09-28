@@ -72,7 +72,6 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-
         axios.post('/addUser',
             {
                 email: this.state.email,
