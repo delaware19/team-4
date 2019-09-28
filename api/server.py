@@ -32,6 +32,40 @@ def welcome():
             return render_template('index.html')
 
 
+@app.route('/addCareTaker', methods = ['GET', 'POST'])
+def addCareTaker():
+    if request.method == 'GET':
+        return render_template('caretaker.html')
+    else:
+        email = request.form['email']
+        caretaker = request.form['caretaker']
+
+
+@app.route('/addUser', methods = ['GET', 'POST'])
+def addUser():
+    if request.method == 'GET':
+        return render_template('app.html')
+    else:
+        email = request.form['email']
+        name = request.form['name']
+        caretaker = request.form['caretaker']
+        gender = request.form['gender']
+        race = request.form['race']
+        age = request.form['race']
+
+        my_dict = dict()
+        my_dict['ChildName'] = name
+        my_dict['CareTaker'] = [caretaker]
+        my_dict['Gender'] = gender
+        my_dict['Race'] = race
+        my_dict['Age'] = age 
+
+        db.collection('users').document(email).set(my_dict)
+       
+
+
+        return render_template(email)
+
 def getCareTakers():
     return data['CareTakers']
 
