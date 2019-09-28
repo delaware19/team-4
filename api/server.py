@@ -55,16 +55,15 @@ def addUser():
         race = request.form['race']
         age = request.form['race']
 
+        caretakers = caretaker.split(',')
         my_dict = dict()
         my_dict['ChildName'] = name
-        my_dict['CareTaker'] = [caretaker]
+        my_dict['CareTaker'] = caretakers
         my_dict['Gender'] = gender
         my_dict['Race'] = race
         my_dict['Age'] = age 
 
         db.collection('users').document(email).set(my_dict)
-       
-
 
         return render_template(email)
 
