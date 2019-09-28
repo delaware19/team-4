@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle} from 'reactstrap';
 // import ReactSearchBox from 'react-search-box';
 import axios from 'axios'
+import './Dashboard.css'
+import placeholder from '../img/placeholder.jpg'
 
 class Dashboard extends Component{
 
@@ -36,45 +38,48 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
-        axios.get( 'http://127.0.0.1:8080/getTemplates',  {} )
-            .then( response => {
-                console.log(response.data)
-            } )
-            .catch(error => {
-                console.log(error);
-            });
-
-        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+        // axios.get( 'https://jsonplaceholder.typicode.com/users',  {} )
         //     .then( response => {
-        //         if(this._isMounted){
-        //             const dummyId1 = [], dummyName1 = [];
-        //             for (let i = 0; i < response.data.length; i++) {
-        //                 dummyId1[i] = response.data[i].id;
-        //                 dummyName1[i] = response.data[i].name;
-        //             }
-        //             this.setState({dummyId:dummyId1, dummyName:dummyName1});
-                   
-        //         }
+        //         console.log(response.data)
         //     } )
         //     .catch(error => {
         //         console.log(error);
         //     });
+
+        axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+            .then( response => {
+                if(this._isMounted){
+                    const dummyId1 = [], dummyName1 = [];
+                    for (let i = 0; i < response.data.length; i++) {
+                        dummyId1[i] = response.data[i].id;
+                        dummyName1[i] = response.data[i].name;
+                    }
+                    this.setState({dummyId:dummyId1, dummyName:dummyName1});
+                   
+                }
+            } )
+            .catch(error => {
+                console.log(error);
+            });
         }
 
  
+    // using placeholder for picture right now, need to find a way to link keyword to the image
       renderCategories(){
         return this.state.result.map(story => {
-            console.log(story[0])
             return (
+                <>
+                <br></br>
                 <Card>
-                <CardImg top width="50%" src="/assets/318x180.svg" alt="Card image cap" />
+                <CardImg top width="20%" src={placeholder} alt="Card image cap" />
                 <CardBody>
-                  <CardTitle>Card title</CardTitle>
+                  <CardTitle>Story:</CardTitle>
                   <CardSubtitle>{story}</CardSubtitle>
                   <CardText>{story.name}</CardText>
                   <Button>Button</Button>
                 </CardBody>
               </Card>
+              </>
             )
         })
     }
