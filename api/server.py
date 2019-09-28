@@ -101,7 +101,7 @@ def getTemplates():
     if not session.get('data', None):
         session['data']=db.collection('users').document('shreyshah33').get().to_dict()
     for story in stories:
-        # print(story.to_dict())
+        print(story.to_dict())
         pages = story.to_dict()['pages']
         for x in range(0,len(pages),2):
             pages[x]=pages[x].replace('$$CHILD$$', session.get('data')['ChildName'])

@@ -3,7 +3,7 @@ import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer }
 "mdbreact";
 import axios from 'axios'
 
-class CarouselAppCheckup extends Component { 
+class CarouselAppShots extends Component { 
 state = {
     dummyId: [],
     dummyInfo: [] 
@@ -19,8 +19,8 @@ getPicDescription() {
         id[2] = "appointment"
         pages[0] = response.data["checkup"]
         pages[1] = response.data["shots"]
-        console.log(pages[0])
-        this.setState({ dummyId: id, dummyInfo: pages[0] })
+        console.log(pages[1])
+        this.setState({ dummyId: id, dummyInfo: pages[1] })
     } )
     .catch(error => {
         console.log(error);
@@ -53,7 +53,6 @@ render () {
                 alt="First slide"
               />
               <h3> {this.state.dummyInfo[0]} </h3>
-              {() => console.log(this.state.dummyInfo[0])}
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="2">
@@ -103,4 +102,4 @@ render () {
 };
 }
 
-export default CarouselAppCheckup;
+export default CarouselAppShots;
