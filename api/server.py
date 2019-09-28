@@ -48,24 +48,25 @@ def addUser():
     if request.method == 'GET':
         return render_template('app.html')
     else:
-        email = request.form['email']
-        name = request.form['name']
-        caretaker = request.form['caretaker']
-        gender = request.form['gender']
-        race = request.form['race']
-        age = request.form['race']
+        # email = request.form['email']
+        # name = request.form['name']
+        # caretaker = request.form['caretaker']
+        # gender = request.form['gender']
+        # race = request.form['race']
+        # age = request.form['race']
 
-        caretakers = caretaker.split(',')
-        my_dict = dict()
-        my_dict['ChildName'] = name
-        my_dict['CareTaker'] = caretakers
-        my_dict['Gender'] = gender
-        my_dict['Race'] = race
-        my_dict['Age'] = age 
+        # caretakers = caretaker.split(',')
+        # my_dict = dict()
+        # my_dict['ChildName'] = name
+        # my_dict['CareTaker'] = caretakers
+        # my_dict['Gender'] = gender
+        # my_dict['Race'] = race
+        # my_dict['Age'] = age 
+        my_dict = request.get_json()
+        print(my_dict)
+        db.collection('users').document(my_dict['email']).set(my_dict['toPost'])
 
-        db.collection('users').document(email).set(my_dict)
-
-        return render_template(email)
+        return 'Thanks'
 
 def getCareTakers():
     return data['CareTakers']
