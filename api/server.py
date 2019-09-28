@@ -1,13 +1,14 @@
 # import the Flask class from the flask module
-
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 from flask import Flask, render_template, request, url_for 
 # Use a service account
-'''
+cred = credentials.Certificate('key.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client() 
-'''
 # password = generate_password_hash('TimCode007')
-# db.collection('password').document('password').set({'password': password})
+data = db.collection('users').document('shreyshah33@gmail.com').get().to_dict()
 # password = db.collection('password').document('password').get().to_dict()['password']
 # print(password)
 # storage_client = storage.Client()
@@ -26,6 +27,12 @@ def welcome():
     ''' 
 
     return render_template('index.html')  # render a template
+
+@app.route('/howdy')
+def howdy():
+    return str(data)
+
+
 
 
 
