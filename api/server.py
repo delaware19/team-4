@@ -28,8 +28,15 @@ def welcome():
     return render_template('index.html')  # render a template
 
 
-
-
+@app.route('/editStories', methods = ["POST"])
+def editStories():
+    print(request) 
+    storyName = request.json["StoryName"]
+    storyContent = request.json["StoryContent"]
+    print(storyName)
+    print(storyContent)
+    #db.collection('stories').document(storyName).set(storyContent) 
+    return "SUCCESS" 
 
 # start the server with the 'run()' method
 if __name__ == '__main__':
