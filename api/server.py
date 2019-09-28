@@ -9,14 +9,19 @@ firebase_admin.initialize_app(cred)
 db = firestore.client() 
 # password = generate_password_hash('TimCode007')
 data = db.collection('users').document('shreyshah33@gmail.com').get().to_dict()
+
+
 # password = db.collection('password').document('password').get().to_dict()['password']
 # print(password)
 # storage_client = storage.Client()
 # bucket = storage_client.get_bucket('<INSERT_BUCKET_HERE>')
 # create the application object
+
+def getCareTakers():
+    return data['CareTakers']
+
+
 app = Flask(__name__)
-
-
 @app.route('/')
 def welcome():
     '''    
