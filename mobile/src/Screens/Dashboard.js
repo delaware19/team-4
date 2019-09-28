@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Container, Row, Col, Input, Card, CardText, CardBody} from 'reactstrap';
+import { Button, Container, Row, Col, Input, Card, CardText, CardBody, Spinner} from 'reactstrap';
 // import ReactSearchBox from 'react-search-box';
 import axios from 'axios'
 
@@ -12,6 +12,10 @@ class Dashboard extends Component{
         result: []
     }
 
+    nextPage = ()  => {
+        this.props.history.push('/profile')
+      }
+
     handleChange = (event) => {
         console.log(this.state.text)
 
@@ -20,12 +24,12 @@ class Dashboard extends Component{
         //dummy user here is the "keyword"
         //text is the input of the searchbox
 
-        for(let index = 0; index < this.state.dummyUser.length; index++){
-            if(this.state.dummyUser[index].toLowerCase().includes(text)){
-                newResult.push(this.state.dummyUser[index])
+        for(let index = 0; index < this.state.dummyTitle.length; index++){
+            if(this.state.dummyTitle[index].toLowerCase().includes(text)){
+                newResult.push(this.state.dummyTitle[index])
+                console.log(newResult)
             }
         }
-        
         //put results of the search into the result[] array
         this.setState({result:newResult})
     }
@@ -36,8 +40,13 @@ class Dashboard extends Component{
         axios.get( 'https://jsonplaceholder.typicode.com/albums', {} )
             .then( response => {
                 if(this._isMounted){
-                    this.setState({ dummyUser: response.data[0].Id, dummyTitle: response.data[0].title})
-                    console.log(this.state.dummyUser)
+                    const dummyUser1 = [], dummyTitle1 = [];
+                    for (let i = 0; i < response.data.length; i++) {
+                        dummyUser1[i] = response.data[i].id;
+                        dummyTitle1[i] = response.data[i].title;
+                    }
+                    this.setState({dummyUser:dummyUser1, dummyTitle:dummyTitle1});
+                   
                 }
             } )
             .catch(error => {
@@ -45,51 +54,24 @@ class Dashboard extends Component{
             });
         }
 
-    // data = [
-    //     {
-    //       key: 'john',
-    //       value: 'John Doe',
-    //     },
-    //     {
-    //       key: 'jane',
-    //       value: 'Jane Doe',
-    //     },
-    //     {
-    //       key: 'mary',
-    //       value: 'Mary Phillips',
-    //     },
-    //     {
-    //       key: 'robert',
-    //       value: 'Robert',
-    //     },
-    //     {
-    //       key: 'karius',
-    //       value: 'Karius',
-    //     },
-    //   ]
+   
 
-
-    nextPage = ()  => {
-        this.props.history.push('/profile')
-      }
-
-
-      
-    //   renderCategories(){
-    //     return this.state.result.map(story => {
-    //         return (
-    //             <Card key={category.categories.name}>
-    //                 <CardBody>
-    //                     <CardText>{category.categories.name}</CardText>
-    //                 </CardBody>
-    //             </Card>
-    //         )
-    //     })
-    // }
+ 
+      renderCategories(){
+        return this.state.result.map(story => {
+            return (
+                <Card key={story.Id}>
+                    <CardBody>
+                        <CardText>{story.Id}</CardText>
+                    </CardBody>
+                </Card>
+            )
+        })
+    }
 
 
     render() {
-        // let resp = this.state.isLoading ? <Spinner color="secondary" /> : this.renderCategories()
+        let resp = this.state.isLoading ? <Spinner color="secondary" /> : this.renderCategories()
         return(
             <>
             <Container>
@@ -102,7 +84,7 @@ class Dashboard extends Component{
                     </Col>
                     <Col md="8">
                         
-                        {/* {resp} */}
+                        {resp}
                         <Input placeholder="search stories" onChange={this.handleChange}/>
 
                         {/* <Dropdown/> */}
