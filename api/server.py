@@ -22,6 +22,7 @@ def isUser(username):
 @app.route('/', methods = ['GET', 'POST'])
 def welcome():
     if request.method=='GET':
+
         return render_template('index.html')  # render a template
     else:
         user = request.form['username']
@@ -34,13 +35,13 @@ def welcome():
             return render_template('index.html')
 
 
-@app.route('/addCareTaker', methods = ['GET', 'POST'])
-def addCareTaker():
-    if request.method == 'GET':
-        return render_template('caretaker.html')
-    else:
-        email = request.form['email']
-        caretaker = request.form['caretaker']
+# @app.route('/addCareTaker', methods = ['GET', 'POST'])
+# def addCareTaker():
+#     if request.method == 'GET':
+#         return render_template('caretaker.html')
+#     else:
+#         email = request.form['email']
+#         caretaker = request.form['caretaker']
 
 
 @app.route('/addUser', methods = ['GET','POST'])
@@ -99,13 +100,24 @@ def getGender():
 def getRace():
     return data['Race']
 
+@app.route('/editStories', methods = ["POST"])
+def editStories():
+    print(request) 
+    storyName = request.json["StoryName"]
+    storyContent = request.json["StoryContent"]
+    print(storyName)
+    print(storyContent)
+    #db.collection('stories').document(storyName).set(storyContent) 
+    return "SUCCESS" 
 
 @app.route('/getTemplates')
 def getTemplates():
     stories = db.collection('stories').stream()
     my_dict = {}
+    if not session.get('data', None):
+        session['data']=db.collection('users').document('shreyshah33').get().to_dict()
     for story in stories:
-        # print(story.to_dict())
+        print(story.to_dict())
         pages = story.to_dict()['pages']
         for x in range(0,len(pages),2):
             pages[x]=pages[x].replace('$$CHILD$$', session.get('data')['ChildName'])
