@@ -6,3 +6,10 @@ module.exports = function(app) {
     changeOrigin: true,
   }));
 };
+
+module.exports = function(app) {
+  app.use('/addUser', proxy({
+    target: 'http://localhost:8080/addUser',
+    changeOrigin: true,
+  }));
+};
