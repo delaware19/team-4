@@ -31,6 +31,10 @@ class Dashboard extends Component{
         this.props.history.push('/profile')
       }
 
+      profile = ()  => {
+        this.props.history.push('/profile')
+      }
+
       handleChange = (event) => {
         const text = event.target.value.toLowerCase()
         const newResult = []
@@ -95,7 +99,7 @@ class Dashboard extends Component{
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                             <NavItem>
-                            <Button id="navbut" color="danger" onClick={this.nextPage}>Children's Profile</Button>
+                            <Button id="navbut" color="danger" onClick={this.profile}>Children's Profile</Button>
                             </NavItem>
                             <NavItem>
                             <Button id="navbut" color="danger" onClick={this.nextPage}>Account</Button>
