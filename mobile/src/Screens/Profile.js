@@ -113,7 +113,11 @@ class Profile extends Component {
         return (
             <Container style={styles.container}>
 
+<<<<<<< HEAD
                 <div style={{ marginTop: '3%' }}>
+=======
+                <div style={{marginTop: '3%'}}>
+>>>>>>> master
                     <Button style={styles.button} onClick={this.backPage}>
                         Back
                     </Button>
@@ -196,7 +200,11 @@ class Profile extends Component {
                                 <MenuItem value={'she/hers'}>she/hers</MenuItem>
                                 <MenuItem value={'they/them'}>they/them</MenuItem>
                                 <MenuItem value={'thirdperson'}>third person</MenuItem>
+<<<<<<< HEAD
                             </Select>
+=======
+                            </Select> 
+>>>>>>> master
                             <br />
                             <br />
                         </div>
@@ -212,7 +220,11 @@ class Profile extends Component {
                                 <MenuItem value={'Asian'}>Asian</MenuItem>
                                 <MenuItem value={'Latino'}>Latino</MenuItem>
                                 <MenuItem value={'Other'}>Other</MenuItem>
+<<<<<<< HEAD
                             </Select>
+=======
+                            </Select> 
+>>>>>>> master
                             <br />
                             <br />
                             <br />
