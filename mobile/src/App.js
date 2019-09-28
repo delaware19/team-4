@@ -9,6 +9,7 @@ function App() {
   return(
 
     <div className="App">
+<<<<<<< HEAD
 
           <Route exact path="/" component={Dashboard}/>
           <Route exact path ="/profile" component={Profile}/>
@@ -28,6 +29,10 @@ function App() {
         </a>
       </header>
 
+=======
+          <Route exact path="/" component={Dashboard}/>
+          <Route exact path ="/profile" component={Profile}/>
+>>>>>>> 4a45a025c271ab16f9e743d9ce9828fa7725dec5
     </div>
 
   );
