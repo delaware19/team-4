@@ -20,6 +20,9 @@ data = db.collection('users').document('shreyshah33@gmail.com').get().to_dict()
 def getCareTakers():
     return data['CareTakers']
 
+def getChildName():
+    return data['ChildName']
+
 
 app = Flask(__name__)
 @app.route('/')
