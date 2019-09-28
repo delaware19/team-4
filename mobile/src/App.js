@@ -9,10 +9,10 @@ function App() {
   return(
 
     <div className="App">
-<<<<<<< HEAD
+
           <Route exact path="/" component={Dashboard}/>
           <Route exact path ="/profile" component={Profile}/>
-=======
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -27,7 +27,7 @@ function App() {
           Learn React
         </a>
       </header>
->>>>>>> master
+
     </div>
 
   );
