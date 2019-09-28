@@ -90,7 +90,7 @@ def getTemplates():
     stories = db.collection('stories').stream()
     my_dict = {}
     if not session.get('data', None):
-        session['data']='shreyshah33'
+        session['data']=db.collection('users').document('shreyshah33').get().to_dict()
     for story in stories:
         # print(story.to_dict())
         pages = story.to_dict()['pages']
