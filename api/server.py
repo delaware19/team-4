@@ -22,6 +22,7 @@ def isUser(username):
 @app.route('/', methods = ['GET', 'POST'])
 def welcome():
     if request.method=='GET':
+
         return render_template('index.html')  # render a template
     else:
         user = request.form['username']
@@ -34,13 +35,13 @@ def welcome():
             return render_template('index.html')
 
 
-@app.route('/addCareTaker', methods = ['GET', 'POST'])
-def addCareTaker():
-    if request.method == 'GET':
-        return render_template('caretaker.html')
-    else:
-        email = request.form['email']
-        caretaker = request.form['caretaker']
+# @app.route('/addCareTaker', methods = ['GET', 'POST'])
+# def addCareTaker():
+#     if request.method == 'GET':
+#         return render_template('caretaker.html')
+#     else:
+#         email = request.form['email']
+#         caretaker = request.form['caretaker']
 
 
 @app.route('/addUser', methods = ['GET','POST'])
@@ -88,6 +89,8 @@ def getRace():
 def getTemplates():
     stories = db.collection('stories').stream()
     my_dict = {}
+    if not session.get('data', None):
+        session['data']='shreyshah33'
     for story in stories:
         # print(story.to_dict())
         pages = story.to_dict()['pages']

@@ -36,21 +36,29 @@ class Dashboard extends Component{
     componentDidMount(){
         this._isMounted = true;
 
-        axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+        axios.get( 'http://127.0.0.1:8080/getTemplates', {} )
             .then( response => {
-                if(this._isMounted){
-                    const dummyId1 = [], dummyName1 = [];
-                    for (let i = 0; i < response.data.length; i++) {
-                        dummyId1[i] = response.data[i].id;
-                        dummyName1[i] = response.data[i].name;
-                    }
-                    this.setState({dummyId:dummyId1, dummyName:dummyName1});
-                   
-                }
+                console.log(response.data)
             } )
             .catch(error => {
                 console.log(error);
             });
+
+        // axios.get( 'https://jsonplaceholder.typicode.com/users', {} )
+        //     .then( response => {
+        //         if(this._isMounted){
+        //             const dummyId1 = [], dummyName1 = [];
+        //             for (let i = 0; i < response.data.length; i++) {
+        //                 dummyId1[i] = response.data[i].id;
+        //                 dummyName1[i] = response.data[i].name;
+        //             }
+        //             this.setState({dummyId:dummyId1, dummyName:dummyName1});
+                   
+        //         }
+        //     } )
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
         }
 
  
