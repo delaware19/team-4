@@ -18,13 +18,6 @@ class Initial extends Component{
             <div id = 'Initial'>
             <body>
                 
-                <h1>Initial Page</h1>
-                
-                <Button style  = {{backgroundColor:'#34a853'}} onClick={this.nextPage}>Login</Button>
-
-                <Button style  = {{backgroundColor:'#34a853'}} onClick={this.nextPage}>New Profile</Button>
-
-
             </body>
 
             </div>
