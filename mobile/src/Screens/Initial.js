@@ -1,26 +1,28 @@
-import React, {Component} from 'react';
-import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle} from 'reactstrap';
+import React, { Component } from 'react';
+import { Button, Container, Row, Col, Input, Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle } from 'reactstrap';
 // import ReactSearchBox from 'react-search-box';
 import axios from 'axios'
 import './Initial.css'
-class Initial extends Component{
+class Initial extends Component {
 
 
-    nextPage = ()  => {
+    nextPage = () => {
         this.props.history.push('/profile')
-      }
+    }
 
-      
+
     render() {
         //let resp = this.renderCategories()
-        return(
+        return (
             <>
-            <div id = 'Initial'>
-            <body>
-                
-            </body>
+                <div id='Initial'>
+                    <body>
+                        <Button style={{ backgroundColor: '#34a853' }} onClick={this.nextPage}>Login</Button>
 
-            </div>
+                        <Button style={{ backgroundColor: '#34a853' }} onClick={this.nextPage}>New Profile</Button>
+                    </body>
+
+                </div>
 
             </>
         );
