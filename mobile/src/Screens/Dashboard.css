@@ -2,3 +2,19 @@
     height: 300px;
     width: 300px;
 }
+
+#back-color{
+    background-color:  #006494 !important;
+} 
+
+.container{
+    max-width:2200px !important;
+} 
+
+.navbar-light .navbar-brand{
+    color:#fff !important;
+} 
+
+.navbar-light .navbar-nav .nav-link{
+    color: #fff !important;
+} 
