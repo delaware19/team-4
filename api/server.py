@@ -9,12 +9,15 @@ firebase_admin.initialize_app(cred)
 db = firestore.client() 
 
 app = Flask(__name__)
+user = ''
 @app.route('/', methods = ['GET', 'POST'])
 def welcome():
     if request.method='GET':
         return render_template('index.html')  # render a template
+    else:
+        user = request.form['username']
+        data = db.collection('users').document(user).get().to_dict()
 
-data = db.collection('users').document('shreyshah33@gmail.com').get().to_dict()
 
 def getCareTakers():
     return data['CareTakers']
