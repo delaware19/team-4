@@ -35,6 +35,17 @@ class Dashboard extends Component{
         this.props.history.push('/profile')
       }
 
+    example = (story) => {
+        console.log("HERERER");
+        if(story==="shots"){
+           this.props.history.push('/carouselshots');
+        }
+        else if (story==="checkup"){
+            this.props.history.push('/carousel');
+        }
+    }
+      
+
       handleChange = (event) => {
         const text = event.target.value.toLowerCase()
         const newResult = []
@@ -76,9 +87,9 @@ class Dashboard extends Component{
             return (
                 <>
                 <br></br>
-               
-                  <Button id="resbut" >{story}</Button>
-                 
+                  <Button id="resbut" onClick =  {() => {this.example(story)}}>
+                  {story} 
+                  </Button>
               </>
             )
         })
