@@ -1,5 +1,3 @@
-Howdy Y'all!
+Our product Storyteller attempts to solve the issue the nonprofit Neymour's stated to us at Code for Good. Neymour's is a nonprofit that assists children on the autistic spectrum with medical needs such as getting shots, blood tests, etc. Children on the spectrum have trouble facing new experiences and professionals and parents try to assist their discomfort through the use of Social Stories. Social Stories provide patients with step by step instructions on how their new experience will be, along with the stories being personalized to each child. However, their current process of doing this involves hand crafting each story and handing them to the child.
 
-Lets get started comrades!
-
-lets goooooooooo!!!
+Storyteller digitizes the design of making Social Stories by allowing professionals to template stories using variables so that they can be tailored to an enormous audience of patients. When parents design their profile for our application, the answers they put in their profile influence the variables that a professional writes in their story template. In addition, we wanted to design a storyboarding canvas so that professionals can write comics and even more unique stories for specific children with more niche needs.
